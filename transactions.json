@@ -1,0 +1,810 @@
+[{
+  "_id": {
+    "$oid": "686fa44145c48fadf2071ef0"
+  },
+  "senderId": {
+    "$oid": "686fa33fbcdc2414e2a238bd"
+  },
+  "receiverId": {
+    "$oid": "686fa33fbcdc2414e2a238b6"
+  },
+  "amount": 1000,
+  "timestamp": {
+    "$date": "2025-07-10T11:30:09.776Z"
+  },
+  "category": "Shopping",
+  "messages": [],
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "686fa46545c48fadf2071f43"
+  },
+  "senderId": {
+    "$oid": "686fa33fbcdc2414e2a238bd"
+  },
+  "receiverId": {
+    "$oid": "686fa33fbcdc2414e2a238c4"
+  },
+  "amount": 1002,
+  "timestamp": {
+    "$date": "2025-07-10T11:30:45.495Z"
+  },
+  "category": "Shopping",
+  "messages": [],
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "686faae145c48fadf207215f"
+  },
+  "senderId": {
+    "$oid": "686fa33fbcdc2414e2a238bd"
+  },
+  "receiverId": {
+    "$oid": "686fa33fbcdc2414e2a238c4"
+  },
+  "amount": 100,
+  "timestamp": {
+    "$date": "2025-07-10T11:58:25.959Z"
+  },
+  "category": "Food",
+  "messages": [],
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "686fab1045c48fadf20721c2"
+  },
+  "senderId": {
+    "$oid": "686fa33fbcdc2414e2a238bd"
+  },
+  "receiverId": {
+    "$oid": "686fa33fbcdc2414e2a238b6"
+  },
+  "amount": 102,
+  "timestamp": {
+    "$date": "2025-07-10T11:59:12.061Z"
+  },
+  "category": "Food",
+  "messages": [],
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "686fab2345c48fadf20721d2"
+  },
+  "senderId": {
+    "$oid": "686fa33fbcdc2414e2a238bd"
+  },
+  "receiverId": {
+    "$oid": "686fa33fbcdc2414e2a238b6"
+  },
+  "amount": 102,
+  "timestamp": {
+    "$date": "2025-07-10T11:59:31.100Z"
+  },
+  "category": "Food",
+  "messages": [],
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "686fab4045c48fadf2072204"
+  },
+  "senderId": {
+    "$oid": "686fa33fbcdc2414e2a238bd"
+  },
+  "receiverId": {
+    "$oid": "686fa33fbcdc2414e2a238b6"
+  },
+  "amount": 80,
+  "timestamp": {
+    "$date": "2025-07-10T12:00:00.837Z"
+  },
+  "category": "Food",
+  "messages": [],
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "686fab7e45c48fadf2072235"
+  },
+  "senderId": {
+    "$oid": "686fa33fbcdc2414e2a238bd"
+  },
+  "receiverId": {
+    "$oid": "686fa33fbcdc2414e2a238b6"
+  },
+  "amount": 100,
+  "timestamp": {
+    "$date": "2025-07-10T12:01:02.056Z"
+  },
+  "category": "Food",
+  "messages": [],
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "686fad89fd83867268f30132"
+  },
+  "senderId": {
+    "$oid": "686fa33fbcdc2414e2a238bd"
+  },
+  "receiverId": {
+    "$oid": "686fa33fbcdc2414e2a238b6"
+  },
+  "amount": 10,
+  "timestamp": {
+    "$date": "2025-07-10T12:09:45.727Z"
+  },
+  "category": "Other",
+  "messages": [],
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "686fae17fd83867268f30233"
+  },
+  "senderId": {
+    "$oid": "686fa33fbcdc2414e2a238b6"
+  },
+  "receiverId": {
+    "$oid": "686fa33fbcdc2414e2a238bd"
+  },
+  "amount": 5000,
+  "timestamp": {
+    "$date": "2025-07-10T12:12:07.304Z"
+  },
+  "category": "Shopping",
+  "messages": [],
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "686fb107fd83867268f302df"
+  },
+  "senderId": {
+    "$oid": "686fa33fbcdc2414e2a238b6"
+  },
+  "receiverId": {
+    "$oid": "686fa33fbcdc2414e2a238c4"
+  },
+  "amount": 100,
+  "timestamp": {
+    "$date": "2025-07-10T12:24:39.625Z"
+  },
+  "category": "Groceries",
+  "messages": [],
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "686fbecffd83867268f303d4"
+  },
+  "senderId": {
+    "$oid": "686fa33fbcdc2414e2a238c4"
+  },
+  "receiverId": {
+    "$oid": "686fa33fbcdc2414e2a238bd"
+  },
+  "amount": 1000,
+  "timestamp": {
+    "$date": "2025-07-10T13:23:27.359Z"
+  },
+  "category": "Rent",
+  "messages": [],
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "686fbef2fd83867268f30440"
+  },
+  "senderId": {
+    "$oid": "686fa33fbcdc2414e2a238c4"
+  },
+  "receiverId": {
+    "$oid": "686fa33fbcdc2414e2a238bd"
+  },
+  "amount": 100,
+  "timestamp": {
+    "$date": "2025-07-10T13:24:02.092Z"
+  },
+  "category": "Fee",
+  "messages": [],
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68786d0a932409cedd88673a"
+  },
+  "senderId": {
+    "$oid": "686fa33fbcdc2414e2a238b6"
+  },
+  "receiverId": {
+    "$oid": "686fa33fbcdc2414e2a238bd"
+  },
+  "amount": 1000,
+  "timestamp": {
+    "$date": "2025-07-17T03:24:58.606Z"
+  },
+  "category": "Rent",
+  "messages": [],
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68786d45932409cedd8867aa"
+  },
+  "senderId": {
+    "$oid": "686fa33fbcdc2414e2a238b6"
+  },
+  "receiverId": {
+    "$oid": "686fa33fbcdc2414e2a238c4"
+  },
+  "amount": 100,
+  "timestamp": {
+    "$date": "2025-07-17T03:25:57.615Z"
+  },
+  "category": "Test",
+  "messages": [],
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68786d65932409cedd886811"
+  },
+  "senderId": {
+    "$oid": "686fa33fbcdc2414e2a238b6"
+  },
+  "receiverId": {
+    "$oid": "686fa33fbcdc2414e2a238bd"
+  },
+  "amount": 102,
+  "timestamp": {
+    "$date": "2025-07-17T03:26:29.433Z"
+  },
+  "category": "Test",
+  "messages": [],
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68786d6c932409cedd886824"
+  },
+  "senderId": {
+    "$oid": "686fa33fbcdc2414e2a238b6"
+  },
+  "receiverId": {
+    "$oid": "686fa33fbcdc2414e2a238bd"
+  },
+  "amount": 102,
+  "timestamp": {
+    "$date": "2025-07-17T03:26:36.776Z"
+  },
+  "category": "Test",
+  "messages": [],
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68786de8932409cedd886878"
+  },
+  "senderId": {
+    "$oid": "686fa33fbcdc2414e2a238b6"
+  },
+  "receiverId": {
+    "$oid": "686fa33fbcdc2414e2a238bd"
+  },
+  "amount": 100,
+  "timestamp": {
+    "$date": "2025-07-17T03:28:40.662Z"
+  },
+  "category": "Test",
+  "messages": [],
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68786df2932409cedd88688b"
+  },
+  "senderId": {
+    "$oid": "686fa33fbcdc2414e2a238b6"
+  },
+  "receiverId": {
+    "$oid": "686fa33fbcdc2414e2a238bd"
+  },
+  "amount": 100,
+  "timestamp": {
+    "$date": "2025-07-17T03:28:50.499Z"
+  },
+  "category": "Test",
+  "messages": [],
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6878ab8369469511ec49f36a"
+  },
+  "senderId": {
+    "$oid": "686fa33fbcdc2414e2a238b6"
+  },
+  "receiverId": {
+    "$oid": "686fa33fbcdc2414e2a238bd"
+  },
+  "amount": 100,
+  "timestamp": {
+    "$date": "2025-07-17T07:51:31.830Z"
+  },
+  "category": "Test1",
+  "messages": [],
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6878aba969469511ec49f3da"
+  },
+  "senderId": {
+    "$oid": "686fa33fbcdc2414e2a238b6"
+  },
+  "receiverId": {
+    "$oid": "686fa33fbcdc2414e2a238c4"
+  },
+  "amount": 100,
+  "timestamp": {
+    "$date": "2025-07-17T07:52:09.435Z"
+  },
+  "category": "Test1",
+  "messages": [],
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6878acf969469511ec49f407"
+  },
+  "senderId": {
+    "$oid": "686fa33fbcdc2414e2a238b6"
+  },
+  "receiverId": {
+    "$oid": "686fa33fbcdc2414e2a238bd"
+  },
+  "amount": 10,
+  "timestamp": {
+    "$date": "2025-07-17T07:57:45.866Z"
+  },
+  "category": "Test1",
+  "messages": [],
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6878ad0569469511ec49f41c"
+  },
+  "senderId": {
+    "$oid": "686fa33fbcdc2414e2a238b6"
+  },
+  "receiverId": {
+    "$oid": "686fa33fbcdc2414e2a238bd"
+  },
+  "amount": 10,
+  "timestamp": {
+    "$date": "2025-07-17T07:57:57.777Z"
+  },
+  "category": "Test1",
+  "messages": [],
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6878af2869469511ec49f4cc"
+  },
+  "senderId": {
+    "$oid": "686fa33fbcdc2414e2a238bd"
+  },
+  "receiverId": {
+    "$oid": "686fa33fbcdc2414e2a238b6"
+  },
+  "amount": 2000,
+  "timestamp": {
+    "$date": "2025-07-17T08:07:04.461Z"
+  },
+  "category": "Test",
+  "messages": [],
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6878af5969469511ec49f546"
+  },
+  "senderId": {
+    "$oid": "686fa33fbcdc2414e2a238bd"
+  },
+  "receiverId": {
+    "$oid": "686fa33fbcdc2414e2a238b6"
+  },
+  "amount": 130,
+  "timestamp": {
+    "$date": "2025-07-17T08:07:53.238Z"
+  },
+  "category": "Test1",
+  "messages": [],
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6878b06169469511ec49f5e0"
+  },
+  "senderId": {
+    "$oid": "686fa33fbcdc2414e2a238bd"
+  },
+  "receiverId": {
+    "$oid": "686fa33fbcdc2414e2a238b6"
+  },
+  "amount": 2008,
+  "timestamp": {
+    "$date": "2025-07-17T08:12:17.168Z"
+  },
+  "category": "Shopping",
+  "messages": [],
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6878b12169469511ec49f667"
+  },
+  "senderId": {
+    "$oid": "686fa33fbcdc2414e2a238c4"
+  },
+  "receiverId": {
+    "$oid": "686fa33fbcdc2414e2a238b6"
+  },
+  "amount": 3000,
+  "timestamp": {
+    "$date": "2025-07-17T08:15:29.411Z"
+  },
+  "category": "Shopping",
+  "messages": [],
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6878b14269469511ec49f6e1"
+  },
+  "senderId": {
+    "$oid": "686fa33fbcdc2414e2a238c4"
+  },
+  "receiverId": {
+    "$oid": "686fa33fbcdc2414e2a238b6"
+  },
+  "amount": 2009,
+  "timestamp": {
+    "$date": "2025-07-17T08:16:02.940Z"
+  },
+  "category": "Shopping",
+  "messages": [],
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6878b3d669469511ec49f7df"
+  },
+  "senderId": {
+    "$oid": "686fa33fbcdc2414e2a238b6"
+  },
+  "receiverId": {
+    "$oid": "686fa33fbcdc2414e2a238bd"
+  },
+  "amount": 1500,
+  "timestamp": {
+    "$date": "2025-07-17T08:27:02.178Z"
+  },
+  "category": "Shopping",
+  "messages": [],
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6878b3fa69469511ec49f844"
+  },
+  "senderId": {
+    "$oid": "686fa33fbcdc2414e2a238b6"
+  },
+  "receiverId": {
+    "$oid": "686fa33fbcdc2414e2a238bd"
+  },
+  "amount": 450,
+  "timestamp": {
+    "$date": "2025-07-17T08:27:38.788Z"
+  },
+  "category": "Food",
+  "messages": [],
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6878b8bcf9ec22e5112a0dd7"
+  },
+  "senderId": {
+    "$oid": "686fa33fbcdc2414e2a238b6"
+  },
+  "receiverId": {
+    "$oid": "686fa33fbcdc2414e2a238bd"
+  },
+  "amount": 200,
+  "timestamp": {
+    "$date": "2025-07-17T08:47:56.284Z"
+  },
+  "category": "Groceries",
+  "messages": [],
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6878ba1cf9ec22e5112a0e63"
+  },
+  "senderId": {
+    "$oid": "686fa33fbcdc2414e2a238bd"
+  },
+  "receiverId": {
+    "$oid": "686fa33fbcdc2414e2a238b6"
+  },
+  "amount": 1000,
+  "timestamp": {
+    "$date": "2025-07-17T08:53:48.898Z"
+  },
+  "category": "Groceries",
+  "messages": [],
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6878ba47f9ec22e5112a0edc"
+  },
+  "senderId": {
+    "$oid": "686fa33fbcdc2414e2a238bd"
+  },
+  "receiverId": {
+    "$oid": "686fa33fbcdc2414e2a238b6"
+  },
+  "amount": 2009,
+  "timestamp": {
+    "$date": "2025-07-17T08:54:31.399Z"
+  },
+  "category": "Rent",
+  "messages": [],
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6878bb35f9ec22e5112a0f67"
+  },
+  "senderId": {
+    "$oid": "686fa33fbcdc2414e2a238b6"
+  },
+  "receiverId": {
+    "$oid": "686fa33fbcdc2414e2a238bd"
+  },
+  "amount": 1200,
+  "timestamp": {
+    "$date": "2025-07-17T08:58:29.753Z"
+  },
+  "category": "Shopping",
+  "messages": [],
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6878bea8f9ec22e5112a1057"
+  },
+  "senderId": {
+    "$oid": "686fa33fbcdc2414e2a238b6"
+  },
+  "receiverId": {
+    "$oid": "686fa33fbcdc2414e2a238bd"
+  },
+  "amount": 1000,
+  "timestamp": {
+    "$date": "2025-07-17T09:13:12.887Z"
+  },
+  "category": "Shopping",
+  "messages": [],
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6878c233f9ec22e5112a10e1"
+  },
+  "senderId": {
+    "$oid": "686fa33fbcdc2414e2a238b6"
+  },
+  "receiverId": {
+    "$oid": "686fa33fbcdc2414e2a238c4"
+  },
+  "amount": 3000,
+  "timestamp": {
+    "$date": "2025-07-17T09:28:19.751Z"
+  },
+  "category": "Rent",
+  "messages": [],
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6878c25bf9ec22e5112a113b"
+  },
+  "senderId": {
+    "$oid": "686fa33fbcdc2414e2a238b6"
+  },
+  "receiverId": {
+    "$oid": "686fa33fbcdc2414e2a238c4"
+  },
+  "amount": 1500,
+  "timestamp": {
+    "$date": "2025-07-17T09:28:59.613Z"
+  },
+  "category": "Rent",
+  "messages": [],
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6878c2f653e38e288792087c"
+  },
+  "senderId": {
+    "$oid": "686fa33fbcdc2414e2a238b6"
+  },
+  "receiverId": {
+    "$oid": "686fa33fbcdc2414e2a238bd"
+  },
+  "amount": 1,
+  "timestamp": {
+    "$date": "2025-07-17T09:31:34.423Z"
+  },
+  "category": "TestCase",
+  "messages": [],
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6878c35b53e38e2887920929"
+  },
+  "senderId": {
+    "$oid": "686fa33fbcdc2414e2a238b6"
+  },
+  "receiverId": {
+    "$oid": "686fa33fbcdc2414e2a238bd"
+  },
+  "amount": 15,
+  "timestamp": {
+    "$date": "2025-07-17T09:33:15.566Z"
+  },
+  "category": "TestCase",
+  "messages": [],
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6878c40553e38e288792099d"
+  },
+  "senderId": {
+    "$oid": "686fa33fbcdc2414e2a238b6"
+  },
+  "receiverId": {
+    "$oid": "686fa33fbcdc2414e2a238bd"
+  },
+  "amount": 10,
+  "timestamp": {
+    "$date": "2025-07-17T09:36:05.790Z"
+  },
+  "category": "TestCase",
+  "messages": [],
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6878c45153e38e2887920a0f"
+  },
+  "senderId": {
+    "$oid": "686fa33fbcdc2414e2a238b6"
+  },
+  "receiverId": {
+    "$oid": "686fa33fbcdc2414e2a238bd"
+  },
+  "amount": 10,
+  "timestamp": {
+    "$date": "2025-07-17T09:37:21.822Z"
+  },
+  "category": "TestCase",
+  "messages": [],
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6878c4db53e38e2887920a51"
+  },
+  "senderId": {
+    "$oid": "686fa33fbcdc2414e2a238b6"
+  },
+  "receiverId": {
+    "$oid": "686fa33fbcdc2414e2a238c4"
+  },
+  "amount": 2,
+  "timestamp": {
+    "$date": "2025-07-17T09:39:39.349Z"
+  },
+  "category": "TestCase",
+  "messages": [],
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68812b2acde620c242f02f17"
+  },
+  "senderId": {
+    "$oid": "688129cccde620c242f02e8a"
+  },
+  "receiverId": {
+    "$oid": "686fa33fbcdc2414e2a238b6"
+  },
+  "amount": 100,
+  "timestamp": {
+    "$date": "2025-07-23T18:34:18.587Z"
+  },
+  "category": "Shopping",
+  "messages": [],
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68825a486c375b96c276222d"
+  },
+  "senderId": {
+    "$oid": "688259d26c375b96c27621a3"
+  },
+  "receiverId": {
+    "$oid": "686fa33fbcdc2414e2a238b6"
+  },
+  "amount": 5000,
+  "timestamp": {
+    "$date": "2025-07-24T16:07:36.731Z"
+  },
+  "category": "bed",
+  "messages": [],
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68825a896c375b96c276229c"
+  },
+  "senderId": {
+    "$oid": "688259d26c375b96c27621a3"
+  },
+  "receiverId": {
+    "$oid": "686fa33fbcdc2414e2a238b6"
+  },
+  "amount": 1005,
+  "timestamp": {
+    "$date": "2025-07-24T16:08:41.790Z"
+  },
+  "category": "bed",
+  "messages": [],
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68825ac86c375b96c2762321"
+  },
+  "senderId": {
+    "$oid": "68812c96cde620c242f02f91"
+  },
+  "receiverId": {
+    "$oid": "688129cccde620c242f02e8a"
+  },
+  "amount": 1000,
+  "timestamp": {
+    "$date": "2025-07-24T16:09:44.922Z"
+  },
+  "category": "Food",
+  "messages": [],
+  "__v": 0
+}]

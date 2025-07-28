@@ -5,6 +5,7 @@ import './App.css';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Register from './components/Register';
+import SEO from './components/SEO';
 
 function App() {
   const [user, setUser] = useState(null);
@@ -32,6 +33,7 @@ function App() {
 
   return (
     <div className="App">
+      <SEO />
       <header className="App-header">
         <h1>PayWise - An Online Money Transaction Application</h1>
       </header>
