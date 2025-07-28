@@ -88,6 +88,32 @@ const Login = ({ setUser, onSwitchToRegister }) => {
       marginTop: '15px',
       fontWeight: 'bold',
     },
+    noteBox: {
+      backgroundColor: '#fff3cd',
+      border: '1px solid #ffeaa7',
+      borderRadius: '5px',
+      padding: '15px',
+      marginTop: '20px',
+      textAlign: 'left',
+    },
+    noteTitle: {
+      color: '#856404',
+      fontWeight: 'bold',
+      marginBottom: '10px',
+      fontSize: '1em',
+    },
+    noteText: {
+      color: '#856404',
+      fontSize: '0.9em',
+      lineHeight: '1.4',
+      marginBottom: '8px',
+    },
+    upiList: {
+      color: '#856404',
+      fontSize: '0.9em',
+      lineHeight: '1.4',
+      marginTop: '5px',
+    },
   };
 
   return (
@@ -119,6 +145,24 @@ const Login = ({ setUser, onSwitchToRegister }) => {
           </div>
           <button type="submit" style={styles.button}>Login</button>
         </form>
+        
+        {/* Note Section */}
+        <div style={styles.noteBox}>
+          <div style={styles.noteTitle}>📝 Demo Information:</div>
+          <div style={styles.noteText}>
+            <strong>Default Password:</strong> 1234 (for all users)
+          </div>
+          <div style={styles.noteText}>
+            <strong>Available UPI IDs for testing:</strong>
+          </div>
+          <div style={styles.upiList}>
+            • alice@upi<br/>
+            • bob@upi<br/>
+            • charlie@upi<br/>
+            • david@upi
+          </div>
+        </div>
+
         {/* Add register link below the form */}
         <div style={{ marginTop: '20px', fontSize: '1em' }}>
           Don't have an account?{' '}

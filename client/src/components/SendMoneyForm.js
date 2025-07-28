@@ -172,6 +172,32 @@ const SendMoneyForm = ({ senderId, onTransactionSuccess, userBalance }) => {
       color: '#777',
       fontStyle: 'italic',
       marginTop: '5px',
+    },
+    noteBox: {
+      backgroundColor: '#fff3cd',
+      border: '1px solid #ffeaa7',
+      borderRadius: '5px',
+      padding: '15px',
+      marginTop: '20px',
+      textAlign: 'left',
+    },
+    noteTitle: {
+      color: '#856404',
+      fontWeight: 'bold',
+      marginBottom: '10px',
+      fontSize: '1em',
+    },
+    noteText: {
+      color: '#856404',
+      fontSize: '0.9em',
+      lineHeight: '1.4',
+      marginBottom: '8px',
+    },
+    upiList: {
+      color: '#856404',
+      fontSize: '0.9em',
+      lineHeight: '1.4',
+      marginTop: '5px',
     }
   };
 
@@ -243,6 +269,24 @@ const SendMoneyForm = ({ senderId, onTransactionSuccess, userBalance }) => {
         </div>
         <button type="submit" style={styles.button}>Send Money</button>
       </form>
+      
+      {/* Note Section */}
+      <div style={styles.noteBox}>
+        <div style={styles.noteTitle}>📝 Demo Information:</div>
+        <div style={styles.noteText}>
+          <strong>Default Password:</strong> 1234 (for all users)
+        </div>
+        <div style={styles.noteText}>
+          <strong>Available UPI IDs for testing:</strong>
+        </div>
+        <div style={styles.upiList}>
+          • alice@upi<br/>
+          • bob@upi<br/>
+          • charlie@upi<br/>
+          • david@upi
+        </div>
+      </div>
+      
       {message && <p style={isSuccess ? styles.successText : styles.errorText}>{message}</p>}
       {showCategoryManager && (
         <div style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, background: 'rgba(0,0,0,0.5)', zIndex: 1000, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
