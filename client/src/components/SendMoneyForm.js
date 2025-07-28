@@ -267,25 +267,26 @@ const SendMoneyForm = ({ senderId, onTransactionSuccess, userBalance }) => {
             {showPassword ? '\ud83d\udc41\ufe0f' : '\ud83d\udc41'}
           </span>
         </div>
+        
+        {/* Note Section Inside Form */}
+        <div style={styles.noteBox}>
+          <div style={styles.noteTitle}>📝 Demo Information:</div>
+          <div style={styles.noteText}>
+            <strong>Default Password:</strong> 1234 (for all users)
+          </div>
+          <div style={styles.noteText}>
+            <strong>Available UPI IDs for testing:</strong>
+          </div>
+          <div style={styles.upiList}>
+            • alice@upi<br/>
+            • bob@upi<br/>
+            • charlie@upi<br/>
+            • david@upi
+          </div>
+        </div>
+        
         <button type="submit" style={styles.button}>Send Money</button>
       </form>
-      
-      {/* Note Section */}
-      <div style={styles.noteBox}>
-        <div style={styles.noteTitle}>📝 Demo Information:</div>
-        <div style={styles.noteText}>
-          <strong>Default Password:</strong> 1234 (for all users)
-        </div>
-        <div style={styles.noteText}>
-          <strong>Available UPI IDs for testing:</strong>
-        </div>
-        <div style={styles.upiList}>
-          • alice@upi<br/>
-          • bob@upi<br/>
-          • charlie@upi<br/>
-          • david@upi
-        </div>
-      </div>
       
       {message && <p style={isSuccess ? styles.successText : styles.errorText}>{message}</p>}
       {showCategoryManager && (

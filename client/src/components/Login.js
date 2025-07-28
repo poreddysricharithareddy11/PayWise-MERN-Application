@@ -143,25 +143,26 @@ const Login = ({ setUser, onSwitchToRegister }) => {
               style={styles.input}
             />
           </div>
+          
+          {/* Note Section Inside Form */}
+          <div style={styles.noteBox}>
+            <div style={styles.noteTitle}>📝 Demo Information:</div>
+            <div style={styles.noteText}>
+              <strong>Default Password:</strong> 1234 (for all users)
+            </div>
+            <div style={styles.noteText}>
+              <strong>Available UPI IDs for testing:</strong>
+            </div>
+            <div style={styles.upiList}>
+              • alice@upi<br/>
+              • bob@upi<br/>
+              • charlie@upi<br/>
+              • david@upi
+            </div>
+          </div>
+          
           <button type="submit" style={styles.button}>Login</button>
         </form>
-        
-        {/* Note Section */}
-        <div style={styles.noteBox}>
-          <div style={styles.noteTitle}>📝 Demo Information:</div>
-          <div style={styles.noteText}>
-            <strong>Default Password:</strong> 1234 (for all users)
-          </div>
-          <div style={styles.noteText}>
-            <strong>Available UPI IDs for testing:</strong>
-          </div>
-          <div style={styles.upiList}>
-            • alice@upi<br/>
-            • bob@upi<br/>
-            • charlie@upi<br/>
-            • david@upi
-          </div>
-        </div>
 
         {/* Add register link below the form */}
         <div style={{ marginTop: '20px', fontSize: '1em' }}>
