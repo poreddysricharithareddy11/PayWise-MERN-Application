@@ -25,7 +25,7 @@ app.use(express.json()); // For parsing application/json
 const corsOptions = {
   origin: [
     'http://localhost:3000', // Local development
-    'https://your-actual-frontend-domain.vercel.app', // Replace with your actual Vercel domain
+    'https://pay-wise-mern-application.vercel.app', // Your actual Vercel frontend URL
     process.env.FRONTEND_URL // Environment variable for frontend URL
   ].filter(Boolean), // Remove undefined values
   credentials: true,
