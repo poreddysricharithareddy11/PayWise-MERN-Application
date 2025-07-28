@@ -38,34 +38,36 @@ const findOrCreateCategory = (user, categoryName, isPredefined) => {
 router.post('/auth/register', async (req, res) => {
   console.log('Backend /auth/register - Received req.body:', req.body); // Debugging log
 
-  const { name, upiId, phoneNumber, password } = req.body;
+  const { name, upiId, phone, password } = req.body;
 
   try {
     // Basic validation
-    if (!name || !upiId || !phoneNumber || !password) {
-      return res.status(400).json({ msg: 'Please enter all fields for registration.' });
+    if (!name || !upiId || !password) {
+      return res.status(400).json({ msg: 'Please enter all required fields for registration.' });
     }
 
-    // Check if user already exists by UPI ID or Phone Number
-    let existingUser = await User.findOne({ $or: [{ upiId }, { phone: phoneNumber }] });
+    // Check if user already exists by UPI ID or Phone Number (if phone is provided)
+    let existingUser;
+    if (phone) {
+      existingUser = await User.findOne({ $or: [{ upiId }, { phone }] });
+    } else {
+      existingUser = await User.findOne({ upiId });
+    }
 
     if (existingUser) {
       if (existingUser.upiId === upiId) {
         return res.status(400).json({ msg: 'User with this UPI ID already exists.' });
       }
-      if (existingUser.phone === phoneNumber) {
+      if (phone && existingUser.phone === phone) {
         return res.status(400).json({ msg: 'User with this Phone Number already exists.' });
       }
       return res.status(400).json({ msg: 'User with this UPI ID or Phone Number already exists.' });
     }
 
     // Create new user instance. Password will be hashed by the pre-save hook in User model.
-    const newUser = new User({
-      name,
-      upiId,
-      phone: phoneNumber, // Map frontend's phoneNumber to backend's 'phone' field
-      password,
-    });
+    const newUserData = { name, upiId, password, balance: 10000 };
+    if (phone) newUserData.phone = phone;
+    const newUser = new User(newUserData);
 
     await newUser.save(); // This triggers the pre-save hook for password hashing and category initialization
 
@@ -447,19 +449,10 @@ router.delete('/categories/:userId/:categoryName', auth, async (req, res) => { /
       return res.status(404).json({ msg: 'User not found.' });
     }
 
-    // Prevent deletion of predefined categories
-    if (PREDEFINED_CATEGORIES.map(name => name.toLowerCase()).includes(categoryName.toLowerCase())) {
-      return res.status(400).json({ msg: 'Cannot delete predefined categories.' });
-    }
-
-    const initialLength = user.categories.length;
+    // Remove the block that prevents deletion of predefined categories
     user.categories = user.categories.filter(
       (cat) => cat.name.toLowerCase() !== categoryName.toLowerCase()
     );
-
-    if (user.categories.length === initialLength) {
-      return res.status(404).json({ msg: 'Category not found or is a predefined category and cannot be deleted.' });
-    }
 
     user.markModified('categories');
     await user.save();

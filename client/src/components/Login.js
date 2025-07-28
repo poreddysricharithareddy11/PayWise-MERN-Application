@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { login } from '../api';
 
-const Login = ({ setUser }) => {
+const Login = ({ setUser, onSwitchToRegister }) => {
   const [identifier, setIdentifier] = useState(''); // Can be UPI ID or Phone Number
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
@@ -119,6 +119,13 @@ const Login = ({ setUser }) => {
           </div>
           <button type="submit" style={styles.button}>Login</button>
         </form>
+        {/* Add register link below the form */}
+        <div style={{ marginTop: '20px', fontSize: '1em' }}>
+          Don't have an account?{' '}
+          <button type="button" onClick={onSwitchToRegister} style={{ color: '#007bff', textDecoration: 'underline', cursor: 'pointer', background: 'none', border: 'none', padding: 0 }}>
+            Register
+          </button>
+        </div>
         {errorMessage && <p style={styles.errorMessage}>{errorMessage}</p>}
       </div>
     </div>

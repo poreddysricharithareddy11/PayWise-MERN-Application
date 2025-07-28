@@ -6,28 +6,41 @@ const Register = ({ onRegisterSuccess, onSwitchToLogin }) => {
   const [upiId, setUpiId] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
   const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [message, setMessage] = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setMessage(''); // Clear previous messages
 
-    console.log('Register Form Submission (Frontend) - Name:', name);
-    console.log('Register Form Submission (Frontend) - UPI ID:', upiId);
-    console.log('Register Form Submission (Frontend) - Phone Number:', phoneNumber);
-    console.log('Register Form Submission (Frontend) - Password:', password);
-
-    if (!name || !upiId || !phoneNumber || !password) {
-      setMessage('Please fill in all fields.');
+    if (!name || !upiId || !password || !confirmPassword) {
+      setMessage('Please fill in all required fields.');
       return;
     }
-
+    if (password !== confirmPassword) {
+      setMessage('Passwords do not match.');
+      return;
+    }
+    const registrationData = { name, upiId, password };
+    if (phoneNumber) registrationData.phone = phoneNumber;
     try {
-      const response = await register({ name, upiId, phoneNumber, password });
-      setMessage(response.data.msg);
+      const response = await register(registrationData);
+      // If registration is successful, show a success message
+      setMessage('Registration is successful');
       onRegisterSuccess();
     } catch (error) {
-      setMessage(error.response?.data?.msg || 'Registration failed. Please try again.');
+      // Handle both object and string error responses
+      let errMsg = 'Registration failed. Please try again.';
+      if (error.response?.data) {
+        if (typeof error.response.data === 'string') {
+          errMsg = error.response.data;
+        } else if (error.response.data.msg) {
+          errMsg = error.response.data.msg;
+        }
+      }
+      setMessage(errMsg);
       console.error('Registration error:', error.response?.data || error.message);
     }
   };
@@ -35,7 +48,7 @@ const Register = ({ onRegisterSuccess, onSwitchToLogin }) => {
   return (
     <div style={styles.container}>
       <h2 style={styles.title}>Register</h2>
-      <form onSubmit={handleSubmit} style={styles.form}>
+      <form onSubmit={handleSubmit} style={styles.form} autoComplete="off">
         <input
           type="text"
           placeholder="Full Name"
@@ -60,14 +73,42 @@ const Register = ({ onRegisterSuccess, onSwitchToLogin }) => {
           style={styles.input}
           required
         />
-        <input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          style={styles.input}
-          required
-        />
+        <div style={{ position: 'relative', width: '100%' }}>
+          <input
+            type={showPassword ? 'text' : 'password'}
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            style={{ ...styles.input, paddingRight: '38px' }}
+            required
+            autoComplete="new-password"
+          />
+          <span
+            onClick={() => setShowPassword((v) => !v)}
+            style={{ position: 'absolute', right: 10, top: '50%', transform: 'translateY(-50%)', cursor: 'pointer', fontSize: '1.2em', color: '#888', background: 'white', padding: '0 2px' }}
+            title={showPassword ? 'Hide password' : 'Show password'}
+          >
+            {showPassword ? '\ud83d\udc41\ufe0f' : '\ud83d\udc41'}
+          </span>
+        </div>
+        <div style={{ position: 'relative', width: '100%' }}>
+          <input
+            type={showConfirmPassword ? 'text' : 'password'}
+            placeholder="Confirm Password"
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
+            style={{ ...styles.input, paddingRight: '38px' }}
+            required
+            autoComplete="new-password"
+          />
+          <span
+            onClick={() => setShowConfirmPassword((v) => !v)}
+            style={{ position: 'absolute', right: 10, top: '50%', transform: 'translateY(-50%)', cursor: 'pointer', fontSize: '1.2em', color: '#888', background: 'white', padding: '0 2px' }}
+            title={showConfirmPassword ? 'Hide password' : 'Show password'}
+          >
+            {showConfirmPassword ? '\ud83d\udc41\ufe0f' : '\ud83d\udc41'}
+          </span>
+        </div>
         <button type="submit" style={styles.button}>Register</button>
       </form>
       {message && <p style={message.includes('successful') ? styles.successText : styles.errorText}>{message}</p>}

@@ -97,9 +97,7 @@ const TransactionDetailsModal = ({ transaction, onClose }) => {
       <div style={modalStyles.modal}>
         <button onClick={onClose} style={modalStyles.closeButton}>✖️</button>
         <h3 style={modalStyles.title}>Transaction Details</h3>
-        <div style={modalStyles.detailRow}>
-          <strong>ID:</strong> <span>{transaction._id}</span>
-        </div>
+        <div style={modalStyles.detailRow}><strong>ID:</strong> <span>{transaction._id}</span></div>
         <div style={modalStyles.detailRow}>
           <strong>From:</strong> <span>{transaction.senderId.name} ({transaction.senderId.upiId})</span>
         </div>
@@ -109,27 +107,24 @@ const TransactionDetailsModal = ({ transaction, onClose }) => {
         <div style={modalStyles.detailRow}>
           <strong>Amount:</strong> <span style={modalStyles.amount}>₹{transaction.amount.toFixed(2)}</span>
         </div>
-        <div style={modalStyles.detailRow}>
-          <strong>Category:</strong> <span>{transaction.category || 'N/A'}</span>
-        </div>
+        <div style={modalStyles.detailRow}><strong>Category:</strong> <span>{transaction.category || 'N/A'}</span></div>
         <div style={modalStyles.detailRow}>
           <strong>Date:</strong> <span>{new Date(transaction.timestamp).toLocaleString()}</span>
         </div>
 
-        {transaction.messages && transaction.messages.length > 0 && (
+        {transaction.messages?.length > 0 ? (
           <div style={modalStyles.messagesSection}>
             <h4 style={modalStyles.messagesTitle}>Messages:</h4>
             <ul style={modalStyles.messagesList}>
               {transaction.messages.map((msg, index) => (
                 <li key={index} style={modalStyles.messageItem}>
-                  <strong>{msg.sender.name || 'Unknown'}:</strong> {msg.message}
+                  <strong>{msg.sender?.name || 'Unknown'}:</strong> {msg.message}
                   <span style={modalStyles.messageTimestamp}>{new Date(msg.timestamp).toLocaleTimeString()}</span>
                 </li>
               ))}
             </ul>
           </div>
-        )}
-        {(!transaction.messages || transaction.messages.length === 0) && (
+        ) : (
           <p style={modalStyles.noMessages}>No messages for this transaction.</p>
         )}
       </div>
@@ -137,30 +132,26 @@ const TransactionDetailsModal = ({ transaction, onClose }) => {
   );
 };
 
-
 const TransactionHistory = ({ transactions, currentUserId }) => {
   const [selectedTransaction, setSelectedTransaction] = useState(null);
   const [modalOpen, setModalOpen] = useState(false);
   const [loadingModal, setLoadingModal] = useState(false);
   const [modalError, setModalError] = useState(null);
 
-  const getTransactionType = (txn) => {
-    return txn.senderId._id === currentUserId ? 'Sent' : 'Received';
-  };
+  const getTransactionType = (txn) =>
+    txn.senderId._id === currentUserId ? 'Sent' : 'Received';
 
-  const getPartnerName = (txn) => {
-    return txn.senderId._id === currentUserId ? txn.receiverId.name : txn.senderId.name;
-  };
+  const getPartnerName = (txn) =>
+    txn.senderId._id === currentUserId ? txn.receiverId.name : txn.senderId.name;
 
-  const getPartnerUpiId = (txn) => {
-    return txn.senderId._id === currentUserId ? txn.receiverId.upiId : txn.senderId.upiId;
-  };
+  const getPartnerUpiId = (txn) =>
+    txn.senderId._id === currentUserId ? txn.receiverId.upiId : txn.senderId.upiId;
 
   const handleViewDetails = async (transactionId) => {
     setLoadingModal(true);
     setModalError(null);
     setSelectedTransaction(null);
-    setModalOpen(true); // Open modal immediately, show loading state
+    setModalOpen(true);
 
     try {
       const details = await getSingleTransaction(transactionId);
@@ -179,89 +170,6 @@ const TransactionHistory = ({ transactions, currentUserId }) => {
     setModalError(null);
   };
 
-  const styles = {
-    container: {
-      backgroundColor: '#fff',
-      padding: '25px',
-      borderRadius: '8px',
-      boxShadow: '0 2px 10px rgba(0,0,0,0.05)',
-      marginTop: '30px',
-    },
-    noTransactions: {
-      textAlign: 'center',
-      padding: '20px',
-      color: '#666',
-      fontStyle: 'italic',
-    },
-    list: {
-      listStyleType: 'none',
-      padding: 0,
-    },
-    listItem: {
-      display: 'flex',
-      justifyContent: 'space-between',
-      alignItems: 'center',
-      padding: '12px 10px',
-      borderBottom: '1px solid #f0f0f0',
-      transition: 'background-color 0.2s ease',
-      cursor: 'pointer',
-      '&:hover': {
-        backgroundColor: '#f8f8f8',
-      }
-    },
-    transactionInfo: {
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'flex-start',
-      flexGrow: 1,
-    },
-    transactionType: (type) => ({
-      fontWeight: 'bold',
-      color: type === 'Sent' ? '#dc3545' : '#28a745',
-      marginBottom: '4px',
-      fontSize: '0.95em',
-    }),
-    partnerInfo: {
-      fontSize: '0.9em',
-      color: '#555',
-      marginBottom: '2px',
-    },
-    category: {
-      fontSize: '0.8em',
-      color: '#888',
-      backgroundColor: '#e9ecef',
-      padding: '2px 6px',
-      borderRadius: '3px',
-      marginTop: '4px',
-    },
-    date: {
-      fontSize: '0.75em',
-      color: '#999',
-      marginTop: '4px',
-    },
-    transactionAmount: {
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'flex-end',
-    },
-    amount: (type) => ({
-      fontWeight: 'bold',
-      fontSize: '1.1em',
-      color: type === 'Sent' ? '#dc3545' : '#28a745',
-    }),
-    detailsButton: {
-      backgroundColor: '#007bff',
-      color: 'white',
-      border: 'none',
-      borderRadius: '4px',
-      padding: '5px 10px',
-      cursor: 'pointer',
-      fontSize: '0.8em',
-      marginTop: '5px',
-      transition: 'background-color 0.3s ease',
-    },
-  };
-
   return (
     <div style={styles.container}>
       <h3>Transaction History 📜</h3>
@@ -275,9 +183,7 @@ const TransactionHistory = ({ transactions, currentUserId }) => {
             return (
               <li key={txn._id} style={styles.listItem} onClick={() => handleViewDetails(txn._id)}>
                 <div style={styles.transactionInfo}>
-                  <span style={styles.transactionType(type)}>
-                    {type}
-                  </span>
+                  <span style={styles.transactionType(type)}>{type}</span>
                   <span style={styles.partnerInfo}>
                     {type === 'Sent' ? 'to' : 'from'} {getPartnerName(txn)} ({getPartnerUpiId(txn)})
                   </span>
@@ -285,23 +191,96 @@ const TransactionHistory = ({ transactions, currentUserId }) => {
                   <span style={styles.date}>{new Date(txn.timestamp).toLocaleDateString()}</span>
                 </div>
                 <div style={styles.transactionAmount}>
-                  <span style={styles.amount(type)}>
-                    {amountPrefix}₹{txn.amount.toFixed(2)}
-                  </span>
+                  <span style={styles.amount(type)}>{amountPrefix}₹{txn.amount.toFixed(2)}</span>
                 </div>
               </li>
             );
           })}
         </ul>
       )}
+
       {modalOpen && (
-        <TransactionDetailsModal
-          transaction={selectedTransaction}
-          onClose={closeModal}
-        />
+        <>
+          {modalError ? (
+            <div style={{ padding: '20px', color: 'red', textAlign: 'center' }}>{modalError}</div>
+          ) : loadingModal ? (
+            <div style={{ padding: '20px', textAlign: 'center' }}>Loading transaction details...</div>
+          ) : (
+            <TransactionDetailsModal transaction={selectedTransaction} onClose={closeModal} />
+          )}
+        </>
       )}
     </div>
   );
 };
 
 export default TransactionHistory;
+
+// Shared styles (outside the components)
+const styles = {
+  container: {
+    backgroundColor: '#fff',
+    padding: '25px',
+    borderRadius: '8px',
+    boxShadow: '0 2px 10px rgba(0,0,0,0.05)',
+    marginTop: '30px',
+  },
+  noTransactions: {
+    textAlign: 'center',
+    padding: '20px',
+    color: '#666',
+    fontStyle: 'italic',
+  },
+  list: {
+    listStyleType: 'none',
+    padding: 0,
+  },
+  listItem: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    padding: '12px 10px',
+    borderBottom: '1px solid #f0f0f0',
+    cursor: 'pointer',
+  },
+  transactionInfo: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'flex-start',
+    flexGrow: 1,
+  },
+  transactionType: (type) => ({
+    fontWeight: 'bold',
+    color: type === 'Sent' ? '#dc3545' : '#28a745',
+    marginBottom: '4px',
+    fontSize: '0.95em',
+  }),
+  partnerInfo: {
+    fontSize: '0.9em',
+    color: '#555',
+    marginBottom: '2px',
+  },
+  category: {
+    fontSize: '0.8em',
+    color: '#888',
+    backgroundColor: '#e9ecef',
+    padding: '2px 6px',
+    borderRadius: '3px',
+    marginTop: '4px',
+  },
+  date: {
+    fontSize: '0.75em',
+    color: '#999',
+    marginTop: '4px',
+  },
+  transactionAmount: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'flex-end',
+  },
+  amount: (type) => ({
+    fontWeight: 'bold',
+    fontSize: '1.1em',
+    color: type === 'Sent' ? '#dc3545' : '#28a745',
+  }),
+};

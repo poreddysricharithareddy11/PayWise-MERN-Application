@@ -8,35 +8,36 @@ const auth = require('../middleware/auth'); // Ensure auth middleware is importe
 // @desc    Register user
 // @access  Public
 router.post('/register', async (req, res) => {
-  const { name, upiId, phoneNumber, password } = req.body;
+  const { name, upiId, phone, password } = req.body;
 
   try {
     // Basic validation
-    if (!name || !upiId || !phoneNumber || !password) {
-      return res.status(400).json({ msg: 'Please enter all fields for registration.' });
+    if (!name || !upiId || !password) {
+      return res.status(400).json({ msg: 'Please enter all required fields for registration.' });
     }
 
-    // Check if user already exists by UPI ID or Phone Number
-    let existingUser = await User.findOne({ $or: [{ upiId }, { phoneNumber }] });
+    // Check if user already exists by UPI ID or Phone Number (if phone is provided)
+    let existingUser;
+    if (phone) {
+      existingUser = await User.findOne({ $or: [{ upiId }, { phone }] });
+    } else {
+      existingUser = await User.findOne({ upiId });
+    }
 
     if (existingUser) {
       if (existingUser.upiId === upiId) {
         return res.status(400).json({ msg: 'User with this UPI ID already exists.' });
       }
-      if (existingUser.phoneNumber === phoneNumber) {
+      if (phone && existingUser.phone === phone) {
         return res.status(400).json({ msg: 'User with this Phone Number already exists.' });
       }
       return res.status(400).json({ msg: 'User with this UPI ID or Phone Number already exists.' });
     }
 
     // Create new user instance. Password will be hashed by the pre-save hook in User model.
-    const user = new User({
-      name,
-      upiId,
-      phoneNumber,
-      password,
-      balance: 0, // Initialize balance to 0 for new users
-    });
+    const newUserData = { name, upiId, password, balance: 10000 };
+    if (phone) newUserData.phone = phone;
+    const user = new User(newUserData);
 
     await user.save();
 
@@ -53,7 +54,7 @@ router.post('/register', async (req, res) => {
       { expiresIn: '1h' },
       (err, token) => {
         if (err) throw err;
-        res.status(201).json({ msg: 'Registration successful!', token, user: { userId: user.id, name: user.name, upiId: user.upiId, phoneNumber: user.phoneNumber } });
+        res.status(201).json({ msg: 'Registration successful!', token, user: { userId: user.id, name: user.name, upiId: user.upiId, phone: user.phone } });
       }
     );
   } catch (err) {
@@ -80,7 +81,7 @@ router.post('/login', async (req, res) => {
     if (identifier.includes('@')) {
       user = await User.findOne({ upiId: identifier });
     } else {
-      user = await User.findOne({ phoneNumber: identifier });
+      user = await User.findOne({ phone: identifier });
     }
 
     if (!user) {
@@ -99,7 +100,7 @@ router.post('/login', async (req, res) => {
         id: user.id,
         name: user.name,
         upiId: user.upiId,
-        phoneNumber: user.phoneNumber,
+        phone: user.phone,
       },
     };
 
@@ -115,7 +116,7 @@ router.post('/login', async (req, res) => {
             userId: user.id,
             name: user.name,
             upiId: user.upiId,
-            phoneNumber: user.phoneNumber,
+            phone: user.phone,
           },
           msg: 'Login successful!',
         });

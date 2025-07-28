@@ -1,5 +1,8 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { sendMoney, getCategories } from '../api';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import CategoryManager from './CategoryManager';
 
 const categoryEmojis = {
   'Shopping': '🛍️',
@@ -10,132 +13,6 @@ const categoryEmojis = {
   'default': '✨',
 };
 
-const LimitExceededWarningModal = ({ details, onConfirm, onCancel }) => {
-  const modalStyles = {
-    overlay: {
-      position: 'fixed',
-      top: 0,
-      left: 0,
-      right: 0,
-      bottom: 0,
-      backgroundColor: 'rgba(255, 0, 0, 0.2)',
-      display: 'flex',
-      justifyContent: 'center',
-      alignItems: 'center',
-      zIndex: 1001,
-    },
-    modal: {
-      backgroundColor: '#fff',
-      padding: '35px',
-      borderRadius: '12px',
-      boxShadow: '0 8px 25px rgba(0, 0, 0, 0.4)',
-      maxWidth: '450px',
-      width: '90%',
-      textAlign: 'center',
-      border: '2px solid #dc3545',
-      animation: 'fadeInScale 0.3s ease-out forwards',
-    },
-    title: {
-      color: '#dc3545',
-      marginBottom: '20px',
-      fontSize: '1.8em',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      gap: '10px',
-    },
-    warningIcon: {
-      fontSize: '1.5em',
-    },
-    message: {
-      fontSize: '1.1em',
-      marginBottom: '15px',
-      color: '#333',
-    },
-    detail: {
-      backgroundColor: '#fefefe',
-      border: '1px solid #f8d7da',
-      borderRadius: '8px',
-      padding: '15px',
-      marginBottom: '20px',
-      textAlign: 'left',
-      fontSize: '0.95em',
-      lineHeight: '1.6',
-    },
-    detailItem: {
-      marginBottom: '5px',
-      color: '#555',
-    },
-    buttonContainer: {
-      display: 'flex',
-      justifyContent: 'space-around',
-      gap: '15px',
-      marginTop: '20px',
-    },
-    button: {
-      padding: '12px 25px',
-      borderRadius: '8px',
-      border: 'none',
-      fontSize: '1em',
-      fontWeight: 'bold',
-      cursor: 'pointer',
-      transition: 'background-color 0.3s ease, transform 0.1s ease',
-      flex: 1,
-    },
-    confirmButton: {
-      backgroundColor: '#28a745',
-      color: 'white',
-      '&:hover': {
-        backgroundColor: '#218838',
-        transform: 'translateY(-1px)',
-      },
-    },
-    cancelButton: {
-      backgroundColor: '#6c757d',
-      color: 'white',
-      '&:hover': {
-        backgroundColor: '#5a6268',
-        transform: 'translateY(-1px)',
-      },
-    },
-    '@keyframes fadeInScale': {
-      '0%': { opacity: 0, transform: 'scale(0.9)' },
-      '100%': { opacity: 1, transform: 'scale(1)' },
-    },
-  };
-
-  return (
-    <div style={modalStyles.overlay} onClick={onCancel}>
-      <div style={modalStyles.modal} onClick={(e) => e.stopPropagation()}>
-        <h3 style={modalStyles.title}>
-          <span style={modalStyles.warningIcon}>⚠️</span> Limit Exceeded!
-        </h3>
-        <p style={modalStyles.message}>
-          You are about to exceed the spending limit on **{details.categoryName}**.
-        </p>
-        <div style={modalStyles.detail}>
-          <p style={modalStyles.detailItem}><strong>Limit:</strong> ₹{details.limit.toFixed(2)}</p>
-          <p style={modalStyles.detailItem}><strong>Your spending net till now:</strong> ₹{details.spentTillNow.toFixed(2)}</p>
-          <p style={modalStyles.detailItem}><strong>Your current spending:</strong> ₹{details.currentAmount.toFixed(2)}</p>
-          <p style={modalStyles.detailItem}><strong>Projected Total:</strong> ₹{(details.spentTillNow + details.currentAmount).toFixed(2)}</p>
-        </div>
-        <p style={modalStyles.message}>
-          Do you wish to proceed with this transaction?
-        </p>
-        <div style={modalStyles.buttonContainer}>
-          <button style={{ ...modalStyles.button, ...modalStyles.confirmButton }} onClick={onConfirm}>
-            Continue Anyway
-          </button>
-          <button style={{ ...modalStyles.button, ...modalStyles.cancelButton }} onClick={onCancel}>
-            Cancel Transaction
-          </button>
-        </div>
-      </div>
-    </div>
-  );
-};
-
-
 const SendMoneyForm = ({ senderId, onTransactionSuccess, userBalance }) => {
   const [receiverIdentifier, setReceiverIdentifier] = useState('');
   const [amount, setAmount] = useState('');
@@ -144,23 +21,20 @@ const SendMoneyForm = ({ senderId, onTransactionSuccess, userBalance }) => {
   const [availableCategories, setAvailableCategories] = useState([]);
   const [message, setMessage] = useState('');
   const [isSuccess, setIsSuccess] = useState(false);
-  const [showLimitWarningModal, setShowLimitWarningModal] = useState(false);
-  const [limitWarningDetails, setLimitWarningDetails] = useState(null);
+  const [showCategoryManager, setShowCategoryManager] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   const fetchCategories = useCallback(async () => {
     if (senderId) {
       try {
         const allCategories = await getCategories(senderId);
         const sortedCategories = [...allCategories].sort((a, b) => {
-          const predefinedOrder = ['Shopping', 'Groceries', 'Food', 'Rent', 'Other'];
-          const aIndex = predefinedOrder.indexOf(a.name);
-          const bIndex = predefinedOrder.indexOf(b.name);
-
-          // Corrected typo from bBindex to bIndex
+          const order = ['Shopping', 'Groceries', 'Food', 'Rent', 'Other'];
+          const aIndex = order.indexOf(a.name);
+          const bIndex = order.indexOf(b.name);
           if (aIndex !== -1 && bIndex !== -1) return aIndex - bIndex;
           if (a.type === 'predefined' && b.type === 'custom') return -1;
           if (a.type === 'custom' && b.type === 'predefined') return 1;
-
           return a.name.localeCompare(b.name);
         });
 
@@ -179,47 +53,10 @@ const SendMoneyForm = ({ senderId, onTransactionSuccess, userBalance }) => {
     fetchCategories();
   }, [fetchCategories]);
 
-  const handleCategoryChange = (e) => {
-    setSelectedCategory(e.target.value);
-  };
-
-  const executeTransaction = async (data) => {
-    try {
-      const transactionResult = await sendMoney(data);
-      console.log("SendMoneyForm API Response (parsed):", transactionResult);
-
-      if (transactionResult.exceedsLimit) {
-        setLimitWarningDetails({
-          categoryName: transactionResult.exceededCategory,
-          limit: transactionResult.limitSet,
-          spentTillNow: transactionResult.spentOnCategory,
-          currentAmount: data.amount,
-        });
-        setShowLimitWarningModal(true);
-      } else {
-        setMessage('Money transferred successfully! ✅');
-        setIsSuccess(true);
-        onTransactionSuccess(); // Refresh dashboard data
-        setReceiverIdentifier('');
-        setAmount('');
-        setPassword('');
-        setSelectedCategory('Other');
-      }
-
-    } catch (error) {
-      console.error('Transfer error:', error.response?.data?.error || error.message);
-      const errorMessage = error.response?.data?.error || error.message || 'Unknown error';
-      setMessage(errorMessage + ' ❌');
-      setIsSuccess(false);
-      setShowLimitWarningModal(false); // Ensure modal is hidden on error
-    }
-  };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     setMessage('');
     setIsSuccess(false);
-    setShowLimitWarningModal(false); // Hide modal if it was open from previous attempt
 
     if (!receiverIdentifier || !amount || !password) {
       setMessage('Please fill in all fields.');
@@ -242,45 +79,35 @@ const SendMoneyForm = ({ senderId, onTransactionSuccess, userBalance }) => {
       category: selectedCategory,
     };
 
-    // If a warning modal is about to be shown, we let executeTransaction handle it.
-    // Otherwise, we directly proceed.
-    await executeTransaction(transactionData);
-  };
-
-  const handleWarningConfirm = async () => {
-    setShowLimitWarningModal(false); // Hide the modal first
-    const transactionData = { // Reconstruct data for final execution after user confirmation
-      senderId,
-      receiverIdentifier,
-      amount: parseFloat(amount),
-      password,
-      category: selectedCategory,
-      // Add a flag to indicate that limit warning was acknowledged
-      // This flag can be checked on the backend if specific logic is needed after bypass
-      limitAcknowledged: true,
-    };
-
     try {
-        const transactionResult = await sendMoney(transactionData);
-        setMessage(`Transaction successful, but you've exceeded your spending limit for "${transactionResult.exceededCategory}"! ⚠️`);
-        setIsSuccess(true);
-        onTransactionSuccess(); // Refresh dashboard data
-        setReceiverIdentifier('');
-        setAmount('');
-        setPassword('');
-        setSelectedCategory('Other');
-    } catch (error) {
-        console.error('Transfer error after confirmation:', error.response?.data?.error || error.message);
-        const errorMessage = error.response?.data?.error || error.message || 'Unknown error';
-        setMessage(errorMessage + ' ❌');
-        setIsSuccess(false);
-    }
-  };
+      const result = await sendMoney(transactionData);
 
-  const handleWarningCancel = () => {
-    setShowLimitWarningModal(false);
-    setMessage('Transaction cancelled by user. 🚫');
-    setIsSuccess(false);
+      if (result.exceedsLimit) {
+        toast.warn(`Limit exceeded for ${result.exceededCategory}. Limit ₹${result.limitSet}, you're spending ₹${amount} (already spent ₹${result.spentOnCategory})`, {
+          position: 'top-right',
+          autoClose: 6000,
+          style: {
+           fontSize: '1.1rem',
+           padding: '20px',
+           minHeight: '80px',
+           borderRadius: '10px',
+  }
+        });
+      }
+
+      setMessage('Money transferred successfully! ✅');
+      setIsSuccess(true);
+      onTransactionSuccess();
+      setReceiverIdentifier('');
+      setAmount('');
+      setPassword('');
+      setSelectedCategory('Other');
+    } catch (error) {
+      console.error('Transfer error:', error);
+      const errMsg = error.response?.data?.error || error.message || 'Unknown error';
+      setMessage(errMsg + ' ❌');
+      setIsSuccess(false);
+    }
   };
 
   const styles = {
@@ -370,44 +197,66 @@ const SendMoneyForm = ({ senderId, onTransactionSuccess, userBalance }) => {
           step="0.01"
           required
         />
-
         <div style={styles.categorySelection}>
           <label htmlFor="category-select" style={styles.label}>Choose Category (Optional):</label>
-          <select
-            id="category-select"
-            value={selectedCategory}
-            onChange={handleCategoryChange}
-            style={styles.select}
-          >
-            {availableCategories.map((cat) => (
-              <option key={cat.name} value={cat.name}>
-                {categoryEmojis[cat.name] || categoryEmojis['default']} {cat.name}
-              </option>
-            ))}
-          </select>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '10px', width: '100%' }}>
+            <select
+              id="category-select"
+              value={selectedCategory}
+              onChange={(e) => setSelectedCategory(e.target.value)}
+              style={{ ...styles.select, flex: 2, minWidth: 0 }}
+            >
+              {availableCategories.map((cat) => (
+                <option key={cat.name} value={cat.name}>
+                  {categoryEmojis[cat.name] || categoryEmojis['default']} {cat.name}
+                </option>
+              ))}
+            </select>
+            <button
+              type="button"
+              style={{ padding: '6px 10px', borderRadius: '4px', background: '#007bff', color: 'white', border: 'none', cursor: 'pointer', fontWeight: 'bold', flex: 1, minWidth: '120px', maxWidth: '160px', fontSize: '0.95em', whiteSpace: 'nowrap' }}
+              onClick={() => setShowCategoryManager(true)}
+            >
+              Manage Categories
+            </button>
+          </div>
           <p style={styles.note}>
-            Want to add a new category? Go to "Manage Categories".
+            Want to add a new category? Click "Manage Categories".
           </p>
         </div>
-
-        <input
-          type="password"
-          placeholder="Your Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          style={styles.input}
-          required
-        />
+        <div style={{ position: 'relative', width: '100%' }}>
+          <input
+            type={showPassword ? 'text' : 'password'}
+            placeholder="Your Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            style={{ ...styles.input, paddingRight: '38px' }}
+            required
+          />
+          <span
+            onClick={() => setShowPassword((v) => !v)}
+            style={{ position: 'absolute', right: 10, top: '50%', transform: 'translateY(-50%)', cursor: 'pointer', fontSize: '1.2em', color: '#888', background: 'white', padding: '0 2px' }}
+            title={showPassword ? 'Hide password' : 'Show password'}
+          >
+            {showPassword ? '\ud83d\udc41\ufe0f' : '\ud83d\udc41'}
+          </span>
+        </div>
         <button type="submit" style={styles.button}>Send Money</button>
       </form>
       {message && <p style={isSuccess ? styles.successText : styles.errorText}>{message}</p>}
-
-      {showLimitWarningModal && limitWarningDetails && (
-        <LimitExceededWarningModal
-          details={limitWarningDetails}
-          onConfirm={handleWarningConfirm}
-          onCancel={handleWarningCancel}
-        />
+      {showCategoryManager && (
+        <div style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, background: 'rgba(0,0,0,0.5)', zIndex: 1000, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+          <div style={{ background: 'white', borderRadius: '12px', padding: '30px 24px', minWidth: '340px', minHeight: '220px', maxWidth: '95vw', maxHeight: '90vh', position: 'relative', boxShadow: '0 4px 24px rgba(0,0,0,0.18)' }}>
+            <button
+              onClick={() => { setShowCategoryManager(false); fetchCategories(); }}
+              style={{ position: 'absolute', top: 10, right: 10, background: 'none', border: 'none', fontSize: '1.5em', cursor: 'pointer', color: '#888' }}
+              title="Close"
+            >
+              ×
+            </button>
+            <CategoryManager userId={senderId} onClose={() => { setShowCategoryManager(false); fetchCategories(); }} />
+          </div>
+        </div>
       )}
     </div>
   );

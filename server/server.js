@@ -20,7 +20,18 @@ const connectDB = async () => {
 connectDB();
 
 app.use(express.json()); // For parsing application/json
-app.use(cors()); // Enable CORS
+
+// CORS configuration for production
+const corsOptions = {
+  origin: [
+    'http://localhost:3000', // Local development
+    'https://your-actual-frontend-domain.vercel.app', // Replace with your actual Vercel domain
+    process.env.FRONTEND_URL // Environment variable for frontend URL
+  ].filter(Boolean), // Remove undefined values
+  credentials: true,
+  optionsSuccessStatus: 200
+};
+app.use(cors(corsOptions));
 
 // Define Routes
 // Authentications routes handled by user.js
@@ -28,10 +39,14 @@ app.use('/api/auth', require('./routes/user'));
 // All other core API routes handled by api.js
 app.use('/api', require('./routes/api'));
 
-
 // Simple root route
 app.get('/', (req, res) => {
-  res.send('PhonePe Clone API is running!');
+  res.send('PayWise API is running!');
+});
+
+// Health check endpoint for Render
+app.get('/health', (req, res) => {
+  res.status(200).json({ status: 'OK', message: 'PayWise API is healthy' });
 });
 
 const PORT = process.env.PORT || 5000;

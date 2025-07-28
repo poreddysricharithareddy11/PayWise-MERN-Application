@@ -1,7 +1,7 @@
-// client/src/api.js
 import axios from 'axios';
 
-const API_URL = 'http://localhost:5000/api'; // Ensure this is HTTP
+// Use environment variable for API URL in production, fallback to localhost for development
+const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000/api';
 
 const api = axios.create({
   baseURL: API_URL,
@@ -60,7 +60,6 @@ export const getAnalysis = async (userId) => {
 
 // Send Money
 export const sendMoney = async (transactionData) => {
-  // This function already returns response.data, which is the actual JSON payload from your backend.
   const response = await api.post('/send', transactionData);
   return response.data;
 };
@@ -82,10 +81,11 @@ export const deleteCategory = async (userId, categoryName) => {
 };
 
 export const setCategoryLimit = async (userId, categoryName, limitAmount) => {
-  const response = await api.put(`/categories/${userId}/${categoryName}/set-limit`, { limit: limitAmount });
+  const response = await api.put(`/categories/${userId}/${categoryName}/set-limit`, {
+    limit: limitAmount,
+  });
   return response.data;
 };
-
 
 // Analytics (for charts)
 export const getMonthlySpendingAnalytics = async (userId) => {
